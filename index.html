@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Pollster</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.6/lumen/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.1/animate.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+    <style>
+      .home-container {
+        text-align: center;
+      }
+
+      .home-lander {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 90%;
+      }
+
+      .input-def {
+        padding: 3px 16px;
+        /*border-radius: 4px;*/
+      }
+
+      .add-item {
+        margin-top: 1em;
+      }
+    </style>
+  </head>
+  <body ng-app="pollster">
+    <div ng-view></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.5/angular.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.5/angular-route.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js"></script>
+
+    <!-- AngularFire -->
+    <script src="https://cdn.firebase.com/libs/angularfire/2.2.0/angularfire.min.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/3.6.5/firebase.js"></script>
+    <script>
+      // Initialize Firebase
+      var config = {
+        apiKey: "AIzaSyBLm3q-AMRdySCaNflXWcWDLeMAbALWtxQ",
+        authDomain: "pollster-57e8e.firebaseapp.com",
+        databaseURL: "https://pollster-57e8e.firebaseio.com",
+        storageBucket: "pollster-57e8e.appspot.com",
+        messagingSenderId: "290202265312"
+      };
+      firebase.initializeApp(config);
+    </script>
+
+    <script src="app.js"></script>
+    <script src="components/home/home.js"></script>
+    <script src="components/poll/poll.js"></script>
+  </body>
+</html>

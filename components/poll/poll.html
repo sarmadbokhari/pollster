@@ -1,0 +1,27 @@
+<div ng-if="!poll.newPoll" class="container">
+  <h1>Pollster</h1>
+  <div class="form-group">
+    <input class="form-control input-lg" type="text" ng-model="poll.title" ng-change="poll.$save()" placeholder="Add title...">
+  </div>
+  <div class="form-group">
+    <input class="form-control input-def" type="text" ng-model="poll.description" ng-change="poll.$save()" placeholder="Add description...">
+  </div>
+  <div class="well well-lg">
+    <p><strong>Your vote is now live.</strong></p>
+    <p>Just add a title (e.g.: "What movie should we watch?") and some items to vote on (e.g.: movies). Share this URL with your friends so they can vote or add their own items.</p>
+  </div>
+  <div class="form-group">
+    <input class="form-control" id="focusedInput" type="text" placeholder="Add item..." ng-model="poll.item">
+    <button type="submit" class="btn btn-primary pull-right add-item" ng-click="addItem(poll.item)">Add</button>
+  </div>
+</div>
+<div ng-if="poll.newPoll" class="container">
+  <div class="jumbotron home-lander">
+    <p>Please enter your name to vote</p>
+    <div class="form-group">
+      <!-- <label class="control-label" for="inputLarge">Your name</label> -->
+      <input class="form-control input-lg" type="text" id="inputLarge" placeholder="Your name" ng-model="creatorName">
+    </div>
+    <p><a class="btn btn-primary btn-lg" ng-click="enterName(creatorName)">View Poll</a></p>
+  </div>
+</div>
