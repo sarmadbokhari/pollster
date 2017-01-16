@@ -29,6 +29,110 @@
       .add-item {
         margin-top: 1em;
       }
+
+      .poll-list {
+        list-style: none;
+        padding-left: 0;
+      }
+
+      .li:first-child {
+        border-width: 0;
+      }
+
+      .poll-list li {
+        padding: 2.5em .6em;
+        font-family: 'Open Sans',arial,sans-serif;
+        clear: both;
+        border-top: 1px solid #f3f3f3;
+      }
+
+      .vote-holder {
+        display: inline-block;
+        width: 4em;
+        float: left;
+      }
+
+      .voter {
+        vertical-align: middle;
+        display: inline-block;
+        line-height: .95em;
+        font-size: 1.2em;
+      }
+
+      .item {
+        vertical-align: middle;
+        padding-left: .4em;
+        margin-left: 4em;
+        font-weight: bold;
+      }
+
+      .item-title {
+        vertical-align: middle;
+        font-size: 2.3em;
+        line-height: 1.2em;
+        margin: -.2em 0;
+      }
+
+      .vote {
+        font-size: .95em;
+        cursor: pointer;
+        background: #ddd;
+        box-shadow: 0 3px #bbb;
+        border-radius: 2px;
+        line-height: 1em;
+        position: relative;
+        top: 0px;
+        margin-bottom: .35em;
+        display: block;
+        padding: 0.5em;
+      }
+
+      .vote-up:hover {
+        background-color: #ac9;
+        box-shadow: 0 3px #8a7;
+      }
+
+      .vote-down:hover {
+        background-color: #c87;
+        box-shadow: 0 3px #a65;
+      }
+
+      .vote-up:active, .vote-down:active {
+      	top:2px;
+      }
+
+      .vote-up:hover, .vote-down:hover {
+      	top:1px;
+      }
+
+      .user-up {
+        color: #8a7;
+      }
+
+      .user-down {
+        color: #a65;
+      }
+
+      .meta .users {
+        margin: .5em 0;
+        display: inline-block;
+        font-weight: 600;
+        color: #aaa;
+        line-height: 1.4em;
+      }
+
+      .user {
+        text-transform: capitalize;
+      }
+
+      .up-voted {
+        background: #ac9;
+      }
+
+      .down-voted {
+        background: #c87;
+      }
+
     </style>
   </head>
   <body ng-app="pollster">
