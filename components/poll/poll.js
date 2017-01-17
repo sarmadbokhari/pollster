@@ -4,7 +4,11 @@ pollster.controller('PollCtrl', ['$scope', '$firebaseObject', 'poll', function($
 
   var getLocalUser = function getLocalUser() {
     return localStorage.getItem('localUser');
-  }
+  };
+
+  $scope.checkName = function checkName(name) {
+      console.log(name);
+  };
 
   $scope.localUser = getLocalUser();
 
@@ -24,11 +28,16 @@ pollster.controller('PollCtrl', ['$scope', '$firebaseObject', 'poll', function($
   };
 
   $scope.addItem = function(item) {
+    if (!item || $scope.itemHasBeenAdded(item)) {
+       console.log('Item has been added already');
+       return;
+    }
+
     // Add voteItem creator name from localStorage
     var voteItem = {
       creationDate: Date.now(),
       name: item
-    }
+    };
 
     if ($scope.poll.options) {
       $scope.poll.options.push(voteItem);
@@ -45,51 +54,91 @@ pollster.controller('PollCtrl', ['$scope', '$firebaseObject', 'poll', function($
   };
 
   $scope.upVote = function upVote(item) {
-    var voteUp = {
-      name: $scope.localUser,
-      date: Date.now()
-    }
-    
-    if (item.voteUps) {
-      item.voteUps.push(voteUp);
-    } else {
-      item.voteUps = [];
-      item.voteUps.push(voteUp);
-    }
-    $scope.poll.$save();
+      if ($scope.userHasUpVoted(item.voteUps)) {
+          $scope.removeVote(item.voteUps, item.voteDowns);
+      } else {
+          $scope.removeVote(item.voteUps, item.voteDowns);
+          $scope.pushVote(item, 'voteUps');
+      }
+      $scope.poll.$save();
   };
 
   $scope.downVote = function downVote(item) {
-    var voteDown = {
-      name: $scope.localUser,
-      date: Date.now()
-    }
-
-    if (item.voteDowns) {
-      item.voteDowns.push(voteDown);
-    } else {
-      item.voteDowns = [];
-      item.voteDowns.push(voteDown);
-    }
-    $scope.poll.$save();
+      if ($scope.userHasDownVoted(item.voteDowns)) {
+          $scope.removeVote(item.voteUps, item.voteDowns);
+      } else {
+          $scope.removeVote(item.voteUps, item.voteDowns);
+          $scope.pushVote(item, 'voteDowns');
+      }
+      $scope.poll.$save();
   };
 
   $scope.userHasUpVoted = function userHasUpVoted(upVotes) {
-    for (var i = 0; i < upVotes.length; i++) {
-      if ($scope.localUser === upVotes[i].name) {
-        return true;
-      }
+    if (upVotes) {
+        for (var i = 0; i < upVotes.length; i++) {
+            if ($scope.localUser === upVotes[i].name) {
+                return true;
+            }
+        }
     }
     return false;
   };
 
   $scope.userHasDownVoted = function userHasDownVoted(downVotes) {
-    for (var i = 0; i < downVotes.length; i++) {
-      if ($scope.localUser === downVotes[i].name) {
-        return true;
-      }
+    if (downVotes) {
+        for (var i = 0; i < downVotes.length; i++) {
+            if ($scope.localUser === downVotes[i].name) {
+                return true;
+            }
+        }
     }
     return false;
   };
 
+  $scope.removeVote = function removeVote(votesUps, voteDowns) {
+      if (votesUps) {
+          var len = votesUps.length;
+          while (len--) {
+              if ($scope.localUser === votesUps[len].name) {
+                  votesUps.splice(len, 1);
+              }
+          }
+      }
+      if (voteDowns) {
+          len = voteDowns.length;
+          while (len--) {
+              if ($scope.localUser === voteDowns[len].name) {
+                  voteDowns.splice(len, 1);
+              }
+          }
+      }
+  };
+
+  $scope.itemHasBeenAdded = function itemHasBeenAdded(item) {
+      var options = $scope.poll.options;
+      if (item && options) {
+          var len = options.length;
+          while(len--) {
+              if (options[len].name === item) {
+                  return true;
+              }
+          }
+      }
+      return false;
+  };
+
+
+  $scope.pushVote = function pushVote(item, voteDirection) {
+      var vote = {
+          name: $scope.localUser,
+          date: Date.now()
+      };
+
+      if (item[voteDirection]) {
+          item[voteDirection].push(vote);
+      } else {
+          item[voteDirection] = [];
+          item[voteDirection].push(vote);
+      }
+  };
 }]);
