@@ -22,3 +22,9 @@ pollster.config(['$routeProvider', function($routeProvider) {
     redirectTo: '/'
   });
 }]);
+
+pollster.directive('pollListItems', function() {
+    return {
+        templateUrl: 'components/pollList/pollList.html'
+    }
+});
