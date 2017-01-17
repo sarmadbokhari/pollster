@@ -25,6 +25,6 @@ pollster.config(['$routeProvider', function($routeProvider) {
 
 pollster.directive('pollListItems', function() {
     return {
-        templateUrl: 'components/pollList/poll-list.html'
+        templateUrl: 'components/poll-list/poll-list.html'
     }
 });
