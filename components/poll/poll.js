@@ -97,16 +97,7 @@ pollster.controller('PollCtrl', ['$scope', '$firebaseObject', 'poll', function($
   };
 
   $scope.itemHasBeenAdded = function itemHasBeenAdded(item) {
-      var options = $scope.poll.options;
-      if (item && options) {
-          var len = options.length;
-          while(len--) {
-              if (options[len].name === item) {
-                  return true;
-              }
-          }
-      }
-      return false;
+      return _.find($scope.poll.options, { name: item });
   };
 
   $scope.pushVote = function pushVote(item, voteDirection) {
