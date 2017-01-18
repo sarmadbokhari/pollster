@@ -56,12 +56,12 @@ pollster.controller('PollCtrl', ['$scope', '$firebaseObject', 'poll', function($
   };
 
   $scope.upVote = function upVote(item) {
-
-      // Need to match poll.options with sortedPollOptions
       if ($scope.userHasUpVoted(item.voteUps)) {
-          $scope.removeVote(item.voteUps, item.voteDowns);
+          $scope.removeVote(item.voteUps);
+          $scope.removeVote(item.voteDowns);
       } else {
-          $scope.removeVote(item.voteUps, item.voteDowns);
+          $scope.removeVote(item.voteUps);
+          $scope.removeVote(item.voteDowns);
           $scope.pushVote(item, 'voteUps');
       }
       $scope.poll.options = $scope.sortedPollOptions;
@@ -69,11 +69,12 @@ pollster.controller('PollCtrl', ['$scope', '$firebaseObject', 'poll', function($
   };
 
   $scope.downVote = function downVote(item) {
-
       if ($scope.userHasDownVoted(item.voteDowns)) {
-          $scope.removeVote([item.voteUps, item.voteDowns]);
+          $scope.removeVote(item.voteUps);
+          $scope.removeVote(item.voteDowns);
       } else {
-          $scope.removeVote([item.voteUps, item.voteDowns]);
+          $scope.removeVote(item.voteUps);
+          $scope.removeVote(item.voteDowns);
           $scope.pushVote(item, 'voteDowns');
       }
       $scope.poll.options = $scope.sortedPollOptions;
