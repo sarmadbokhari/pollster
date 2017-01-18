@@ -82,18 +82,11 @@ pollster.controller('PollCtrl', ['$scope', '$firebaseObject', 'poll', function($
   };
 
   $scope.userHasUpVoted = function userHasUpVoted(upVotes) {
-    if (upVotes) {
-        for (var i = 0; i < upVotes.length; i++) {
-            if ($scope.localUser === upVotes[i].name) {
-                return true;
-            }
-        }
-    }
-    return false;
+      return _.find(upVotes, { name: $scope.localUser });
   };
 
   $scope.userHasDownVoted = function userHasDownVoted(downVotes) {
-    return _.find(downVotes, { name: $scope.localUser });
+      return _.find(downVotes, { name: $scope.localUser });
   };
 
   $scope.removeVote = function removeVote(vote) {
