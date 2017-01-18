@@ -12,7 +12,7 @@
   </div>
   <poll-list-items></poll-list-items>
   <div class="form-group">
-    <input class="form-control" id="focusedInput" type="text" placeholder="Add item..." ng-model="item">
+    <input class="form-control" id="focusedInput" type="text" placeholder="Add item..." ng-model="item" ng-keyup="checkEnter($event, item)">
     <button type="submit" class="btn btn-primary pull-right add-item" ng-click="addItem(item)">Add</button>
   </div>
 </div>

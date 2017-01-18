@@ -127,7 +127,6 @@ pollster.controller('PollCtrl', ['$scope', '$firebaseObject', 'poll', function($
       return false;
   };
 
-
   $scope.pushVote = function pushVote(item, voteDirection) {
       var vote = {
           name: $scope.localUser,
@@ -141,4 +140,11 @@ pollster.controller('PollCtrl', ['$scope', '$firebaseObject', 'poll', function($
           item[voteDirection].push(vote);
       }
   };
+
+  $scope.checkEnter = function checkEnter(event, item) {
+    if (event.keyCode === 13) {
+        $scope.addItem(item);
+    }
+  }
+
 }]);
