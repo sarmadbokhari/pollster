@@ -3,7 +3,7 @@
         <div class="vote-holder">
             <div class="voter">
                 <i class="vote vote-up fa fa-thumbs-o-up" ng-class="{ 'up-voted': userHasUpVoted(item.voteUps) }" ng-click="upVote(item)" aria-hidden="true"></i>
-                <i class="vote vote-down fa fa-thumbs-o-down" ng-class="{ 'down-voted': userHasDownVoted(item.voteDowns) }" ng-click="downVote(item)" aria-hidden="true"></i>
+                <i class="vote vote-down fa fa-thumbs-o-down" ng-class="{ 'down-voted': userHasDownVoted(item.voteDowns) }" ng-click="downVote(item)"  aria-hidden="true"></i>
             </div>
             <div class="vote-total">{{item.options.length}}</div>
         </div>

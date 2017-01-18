@@ -10,13 +10,13 @@
     <p><strong>Your vote is now live.</strong></p>
     <p><span ng-if="!poll.title || !poll.options">Just add <span ng-if="!poll.title">a title (e.g.: "What movie should we watch?") and</span> <span ng-if="!poll.options">some items to vote on (e.g.: movies).</span></span> Share this URL with your friends so they can vote or add their own items.</p>
   </div>
-    <div>
-        <p>Sort-by</p>
-        <select ng-change="sortList(sortBy)" ng-model="sortBy">
-            <option value="voteUps">Likes</option>
-            <option value="voteDowns">Dis-Likes</option>
-        </select>
-    </div>
+  <div>
+    <p>Sort-by</p>
+    <select ng-change="sortList(sortBy)" ng-model="sortBy">
+        <option value="voteUps">Likes</option>
+        <option value="voteDowns">Dis-Likes</option>
+    </select>
+   </div>
   <poll-list-items></poll-list-items>
   <div class="form-group">
     <input class="form-control" id="focusedInput" type="text" placeholder="Add item..." ng-model="item" ng-keyup="checkEnter($event, item)">

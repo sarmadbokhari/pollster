@@ -146,5 +146,4 @@ pollster.controller('PollCtrl', ['$scope', '$firebaseObject', 'poll', function($
 
   // Initialization
   $scope.sortList($scope.sortBy);
-
 }]);
