@@ -1,6 +1,8 @@
 pollster.controller('PollCtrl', ['$scope', '$firebaseObject', 'poll', function($scope, $firebaseObject, poll) {
   $scope.hello = 'Hello world';
   $scope.poll = poll;
+  $scope.sortedPollOptions = [];
+  $scope.sortBy            = 'voteUps';
 
   var getLocalUser = function getLocalUser() {
     return localStorage.getItem('localUser');
@@ -48,28 +50,33 @@ pollster.controller('PollCtrl', ['$scope', '$firebaseObject', 'poll', function($
 
     $scope.poll.$save().then(function() {
       $scope.item = '';
+      $scope.sortList($scope.sortBy);
       console.log('saved voteItem successfully');
     });
-
   };
 
   $scope.upVote = function upVote(item) {
+
+      // Need to match poll.options with sortedPollOptions
       if ($scope.userHasUpVoted(item.voteUps)) {
           $scope.removeVote(item.voteUps, item.voteDowns);
       } else {
           $scope.removeVote(item.voteUps, item.voteDowns);
           $scope.pushVote(item, 'voteUps');
       }
+      $scope.poll.options = $scope.sortedPollOptions;
       $scope.poll.$save();
   };
 
   $scope.downVote = function downVote(item) {
+
       if ($scope.userHasDownVoted(item.voteDowns)) {
-          $scope.removeVote(item.voteUps, item.voteDowns);
+          $scope.removeVote([item.voteUps, item.voteDowns]);
       } else {
-          $scope.removeVote(item.voteUps, item.voteDowns);
+          $scope.removeVote([item.voteUps, item.voteDowns]);
           $scope.pushVote(item, 'voteDowns');
       }
+      $scope.poll.options = $scope.sortedPollOptions;
       $scope.poll.$save();
   };
 
@@ -85,32 +92,13 @@ pollster.controller('PollCtrl', ['$scope', '$firebaseObject', 'poll', function($
   };
 
   $scope.userHasDownVoted = function userHasDownVoted(downVotes) {
-    if (downVotes) {
-        for (var i = 0; i < downVotes.length; i++) {
-            if ($scope.localUser === downVotes[i].name) {
-                return true;
-            }
-        }
-    }
-    return false;
+    return _.find(downVotes, { name: $scope.localUser });
   };
 
-  $scope.removeVote = function removeVote(votesUps, voteDowns) {
-      if (votesUps) {
-          var len = votesUps.length;
-          while (len--) {
-              if ($scope.localUser === votesUps[len].name) {
-                  votesUps.splice(len, 1);
-              }
-          }
-      }
-      if (voteDowns) {
-          len = voteDowns.length;
-          while (len--) {
-              if ($scope.localUser === voteDowns[len].name) {
-                  voteDowns.splice(len, 1);
-              }
-          }
+  $scope.removeVote = function removeVote(vote) {
+      var index = _.findIndex(vote, { name: $scope.localUser });
+      if (index !== -1) {
+          vote.splice(index, 1);
       }
   };
 
@@ -145,6 +133,18 @@ pollster.controller('PollCtrl', ['$scope', '$firebaseObject', 'poll', function($
     if (event.keyCode === 13) {
         $scope.addItem(item);
     }
-  }
+  };
+
+  $scope.sortList = function sortList(sortField) {
+      var sortStrategies = {
+          'voteUps':    function (option) { return option.voteUps ? option.voteUps.length : 0;      } ,
+          'voteDowns':  function (option) { return option.voteDowns ? option.voteDowns.length : 0;  }
+      };
+
+      $scope.sortedPollOptions = _.sortBy($scope.poll.options, sortStrategies[sortField]).reverse();
+  };
+
+  // Initialization
+  $scope.sortList($scope.sortBy);
 
 }]);

@@ -1,4 +1,4 @@
-<ul class="poll-list" ng-repeat="item in poll.options">
+<ul class="poll-list" ng-repeat="item in sortedPollOptions">
     <li>
         <div class="vote-holder">
             <div class="voter">
@@ -11,8 +11,8 @@
             <div class="item-title">{{item.name}}</div>
             <div class="meta">
                 <div class="users">
-                    <span class="user-up" ng-if="item.voteUps">▲<span class="user" ng-repeat="user in item.voteUps">&nbsp;{{ (localUser === user.name) ? user.name + '*' : user.name }}</span></span>
-                    <span class="user-down" ng-if="item.voteDowns">▼<span class="user" ng-repeat="user in item.voteDowns">&nbsp;{{ (localUser === user.name) ? user.name + '*' : user.name }}</span></span>
+                    <span class="user-up" ng-if="item.voteUps && item.voteUps.length">▲<span class="user" ng-repeat="user in item.voteUps">&nbsp;{{ (localUser === user.name) ? user.name + '*' : user.name }}</span></span>
+                    <span class="user-down" ng-if="item.voteDowns && item.voteDowns.length">▼<span class="user" ng-repeat="user in item.voteDowns">&nbsp;{{ (localUser === user.name) ? user.name + '*' : user.name }}</span></span>
                 </div>
             </div>
             <div style="clear:both;"></div>
