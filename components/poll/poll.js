@@ -9,14 +9,12 @@ pollster.controller('PollCtrl', ['$scope', '$firebaseObject', 'poll', function($
     return localStorage.getItem('localUser');
   };
 
-  $scope.checkName = function checkName(name) {
-      console.log(name);
-  };
-
   $scope.localUser = getLocalUser();
 
   $scope.enterName = function enterName(name) {
     if(!name) { return; }
+
+    name = name.toLowerCase().trim();
 
     localStorage.setItem('localUser', name);
     $scope.localUser = getLocalUser();

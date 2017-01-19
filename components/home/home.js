@@ -1,4 +1,8 @@
 pollster.controller('HomeCtrl', ['$scope', '$location', function($scope, $location) {
+  $scope.loading = {
+    poll: false
+  }
+
   var generateUrl = function generateUrl() {
     var chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
     var randomUrl = '';
@@ -12,6 +16,8 @@ pollster.controller('HomeCtrl', ['$scope', '$location', function($scope, $locati
   };
 
   $scope.createPoll = function() {
+    $scope.loading.poll = true;
+
     var url = generateUrl();
     var firebaseRef = firebase.database().ref().child('polls');
 
@@ -23,6 +29,7 @@ pollster.controller('HomeCtrl', ['$scope', '$location', function($scope, $locati
         firebase.database().ref('polls/' + url).set({
           newPoll: true
         }).then(function() {
+          $scope.loading.poll = false;
           console.log('url created successfully');
           $location.path('/' + url);
           $scope.$apply();
