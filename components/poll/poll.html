@@ -1,5 +1,8 @@
 <div ng-if="!poll.newPoll && localUser" class="container">
-  <h1>Pollster</h1>
+  <div class="col-sm-12">
+    <h3 class="pull-left">Pollster</h3>
+    <h6 class="pull-right slogan">Simple voting without logins</h6>
+  </div>
   <div class="form-group title">
     <input class="form-control input-lg" type="text" ng-model="poll.title" ng-change="poll.$save()" placeholder="Add title...">
   </div>
@@ -18,7 +21,7 @@
     </select>
    </div>
   <poll-list-items></poll-list-items>
-  <div class="form-group">
+  <div class="form-group add-item">
     <input class="form-control" id="focusedInput" type="text" placeholder="Add item..." ng-model="addField.item" ng-keyup="addItemEnterPress($event, addField.item)">
     <button type="submit" class="btn btn-primary pull-right" ng-click="addItem(addField.item)">Add</button>
   </div>
