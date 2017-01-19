@@ -3,6 +3,7 @@ pollster.controller('PollCtrl', ['$scope', '$firebaseObject', 'poll', function($
   $scope.poll = poll;
   $scope.sortedPollOptions = [];
   $scope.sort = { sortBy: 'voteUps' };
+  $scope.addField = { item: '' };
 
   var getLocalUser = function getLocalUser() {
     return localStorage.getItem('localUser');
@@ -49,7 +50,7 @@ pollster.controller('PollCtrl', ['$scope', '$firebaseObject', 'poll', function($
     }
 
     $scope.poll.$save().then(function() {
-      $scope.item = '';
+      $scope.addField.item = '';
       $scope.sortList($scope.sort.sortBy);
       console.log('saved voteItem successfully');
     });

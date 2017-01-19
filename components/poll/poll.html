@@ -19,8 +19,8 @@
    </div>
   <poll-list-items></poll-list-items>
   <div class="form-group">
-    <input class="form-control" id="focusedInput" type="text" placeholder="Add item..." ng-model="item" ng-keyup="checkEnter($event, item)">
-    <button type="submit" class="btn btn-primary pull-right add-item" ng-click="addItem(item)">Add</button>
+    <input class="form-control" id="focusedInput" type="text" placeholder="Add item..." ng-model="addField.item" ng-keyup="checkEnter($event, addField.item)">
+    <button type="submit" class="btn btn-primary pull-right add-item" ng-click="addItem(addField.item)">Add</button>
   </div>
 </div>
 <div ng-if="poll.newPoll || !localUser" class="container">
@@ -28,7 +28,7 @@
     <p>Please enter your name to vote</p>
     <div class="form-group">
       <!-- <label class="control-label" for="inputLarge">Your name</label> -->
-      <input class="form-control input-lg" type="text" id="inputLarge" placeholder="Your name" ng-change="checkName(creatorName)" ng-model="creatorName" ng-cloak>
+      <input class="form-control input-lg" type="text" id="inputLarge" placeholder="Your name" ng-change="checkName(creatorName)" ng-model="creatorName">
     </div>
     <p><a class="btn btn-primary btn-lg" ng-click="enterName(creatorName)">View Poll</a></p>
   </div>
