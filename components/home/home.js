@@ -17,17 +17,15 @@ pollster.controller('HomeCtrl', ['$scope', '$location', function($scope, $locati
 
     test.once('value', function(snap) {
       if (snap.hasChild(url)) {
-        debugger;
         // this url exists, re-generateUrl
         $scope.createPoll();
       } else {
-        debugger;
         firebase.database().ref('polls/' + url).set({
           newPoll: true
         }).then(function() {
           console.log('url created successfully');
-          debugger;
           $location.path('/' + url);
+          $scope.$apply();
         })
       }
     });
