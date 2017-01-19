@@ -20,7 +20,7 @@
   <poll-list-items></poll-list-items>
   <div class="form-group">
     <input class="form-control" id="focusedInput" type="text" placeholder="Add item..." ng-model="addField.item" ng-keyup="checkEnter($event, addField.item)">
-    <button type="submit" class="btn btn-primary pull-right add-item" ng-click="addItem(addField.item)">Add</button>
+    <button type="submit" class="btn btn-primary pull-right" ng-click="addItem(addField.item)">Add</button>
   </div>
 </div>
 <div ng-if="poll.newPoll || !localUser" class="container">
