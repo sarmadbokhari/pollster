@@ -13,9 +13,9 @@ pollster.controller('HomeCtrl', ['$scope', '$location', function($scope, $locati
 
   $scope.createPoll = function() {
     var url = generateUrl();
-    var test = firebase.database().ref().child('polls');
+    var firebaseRef = firebase.database().ref().child('polls');
 
-    test.once('value', function(snap) {
+    firebaseRef.once('value', function(snap) {
       if (snap.hasChild(url)) {
         // this url exists, re-generateUrl
         $scope.createPoll();
