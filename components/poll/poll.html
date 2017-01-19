@@ -12,7 +12,7 @@
   </div>
   <div>
     <p>Sort-by</p>
-    <select ng-change="sortList(sortBy)" ng-model="sortBy">
+    <select ng-change="sortList(sort.sortBy)" ng-model="sort.sortBy" ng-init="sort.sortBy = 'voteUps'">
         <option value="voteUps">Likes</option>
         <option value="voteDowns">Dis-Likes</option>
     </select>

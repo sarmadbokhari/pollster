@@ -2,7 +2,7 @@ pollster.controller('PollCtrl', ['$scope', '$firebaseObject', 'poll', function($
   $scope.hello = 'Hello world';
   $scope.poll = poll;
   $scope.sortedPollOptions = [];
-  $scope.sortBy            = 'voteUps';
+  $scope.sort = { sortBy: 'voteUps' };
 
   var getLocalUser = function getLocalUser() {
     return localStorage.getItem('localUser');
@@ -50,7 +50,7 @@ pollster.controller('PollCtrl', ['$scope', '$firebaseObject', 'poll', function($
 
     $scope.poll.$save().then(function() {
       $scope.item = '';
-      $scope.sortList($scope.sortBy);
+      $scope.sortList($scope.sort.sortBy);
       console.log('saved voteItem successfully');
     });
   };
@@ -66,6 +66,7 @@ pollster.controller('PollCtrl', ['$scope', '$firebaseObject', 'poll', function($
       }
       $scope.poll.options = $scope.sortedPollOptions;
       $scope.poll.$save();
+      $scope.sortList($scope.sort.sortBy);
   };
 
   $scope.downVote = function downVote(item) {
@@ -79,6 +80,7 @@ pollster.controller('PollCtrl', ['$scope', '$firebaseObject', 'poll', function($
       }
       $scope.poll.options = $scope.sortedPollOptions;
       $scope.poll.$save();
+      $scope.sortList($scope.sort.sortBy);
   };
 
   $scope.userHasUpVoted = function userHasUpVoted(upVotes) {
@@ -130,5 +132,5 @@ pollster.controller('PollCtrl', ['$scope', '$firebaseObject', 'poll', function($
   };
 
   // Initialization
-  $scope.sortList($scope.sortBy);
+  $scope.sortList($scope.sort.sortBy);
 }]);
