@@ -1,36 +1,51 @@
-pollster.controller('HomeCtrl', ['$scope', '$location', function($scope, $location) {
-  var generateUrl = function generateUrl() {
-    var chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    var randomUrl = '';
+pollster.controller('HomeCtrl', [
+  '$scope',
+  '$location',
+  function ($scope, $location) {
 
-    for (var i = 0; i < 5; i++) {
-      var randomChar = _.random(chars.length-1);
-      randomUrl += chars[randomChar];
+    function generateUrl() {
+      const CHARS = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+      let randomUrl = '';
+
+      for (let i = 0; i < 5; i++) {
+        const randomChar = _.random(CHARS.length - 1);
+        randomUrl += CHARS[randomChar];
+      }
+
+      if (checkDuplicateUrl(randomUrl)) {
+        generateUrl();
+      } else {
+        return randomUrl;
+      }
     }
 
-    return randomUrl;
-  };
+    function checkDuplicateUrl(url) {
+      const test = firebase
+        .database()
+        .ref()
+        .child('polls');
 
-  $scope.createPoll = function() {
-    var url = generateUrl();
-    var test = firebase.database().ref().child('polls');
+      test.once('value', function (snap) {
+        return (snap.hasChild(url)) ?
+          true :
+          false;
+      });
+    }
 
-    test.once('value', function(snap) {
-      if (snap.hasChild(url)) {
-        debugger;
-        // this url exists, re-generateUrl
-        $scope.createPoll();
-      } else {
-        debugger;
-        firebase.database().ref('polls/' + url).set({
+    $scope.createPoll = function () {
+      let url = generateUrl();
+
+      firebase
+        .database()
+        .ref('polls/' + url)
+        .set({
           newPoll: true
-        }).then(function() {
-          console.log('url created successfully');
-          debugger;
-          $location.path('/' + url);
         })
-      }
-    });
-  };
-
-}]);
+        .then(function () {
+          console.log('url created successfully');
+          $location.path('/' + url);
+          $scope.$apply();
+        })
+    };
+  }
+]);
