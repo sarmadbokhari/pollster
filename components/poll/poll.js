@@ -118,9 +118,9 @@ pollster.controller('PollCtrl', ['$scope', '$firebaseObject', 'poll', function($
   };
 
   $scope.addItemEnterPress = function checkEnter(event, item) {
-    if (event.keyCode === 13) {
+      if (event.keyCode === 13) {
         $scope.addItem(item);
-    }
+      }
   };
 
   $scope.addVoterEnterPress = function addVoter(event, creatorName) {
