@@ -117,10 +117,16 @@ pollster.controller('PollCtrl', ['$scope', '$firebaseObject', 'poll', function($
       }
   };
 
-  $scope.checkEnter = function checkEnter(event, item) {
+  $scope.addItemEnterPress = function checkEnter(event, item) {
     if (event.keyCode === 13) {
         $scope.addItem(item);
     }
+  };
+
+  $scope.addVoterEnterPress = function addVoter(event, creatorName) {
+      if (event.keyCode === 13) {
+          $scope.enterName(creatorName);
+      }
   };
 
   $scope.sortList = function sortList(sortField) {
