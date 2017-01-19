@@ -1,0 +1,21 @@
+<ul class="poll-list" ng-repeat="item in sortedPollOptions">
+    <li>
+        <div class="vote-holder">
+            <div class="voter">
+                <i class="vote vote-up fa fa-thumbs-o-up" ng-class="{ 'up-voted': userHasUpVoted(item.voteUps) }" ng-click="upVote(item)" aria-hidden="true"></i>
+                <i class="vote vote-down fa fa-thumbs-o-down" ng-class="{ 'down-voted': userHasDownVoted(item.voteDowns) }" ng-click="downVote(item)"  aria-hidden="true"></i>
+            </div>
+            <div class="vote-total">{{item.options.length}}</div>
+        </div>
+        <div class="item">
+            <div class="item-title">{{item.name}}</div>
+            <div class="meta">
+                <div class="users">
+                    <span class="user-up" ng-if="item.voteUps && item.voteUps.length">▲<span class="user" ng-repeat="user in item.voteUps">&nbsp;{{ (localUser === user.name) ? user.name + '*' : user.name }}</span></span>
+                    <span class="user-down" ng-if="item.voteDowns && item.voteDowns.length">▼<span class="user" ng-repeat="user in item.voteDowns">&nbsp;{{ (localUser === user.name) ? user.name + '*' : user.name }}</span></span>
+                </div>
+            </div>
+            <div style="clear:both;"></div>
+        </div>
+    </li>
+</ul>
