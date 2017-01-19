@@ -1,41 +1,52 @@
-pollster.controller('HomeCtrl', ['$scope', '$location', function($scope, $location) {
-  $scope.loading = {
-    poll: false
-  }
+pollster.controller('HomeCtrl', [
+  '$scope',
+  '$location',
+  function ($scope, $location) {
 
-  var generateUrl = function generateUrl() {
-    var chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    var randomUrl = '';
+    function generateUrl() {
+      const CHARS = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+      let randomUrl = '';
 
-    for (var i = 0; i < 5; i++) {
-      var randomChar = _.random(chars.length-1);
-      randomUrl += chars[randomChar];
+      for (let i = 0; i < 5; i++) {
+        const randomChar = _.random(CHARS.length - 1);
+        randomUrl += CHARS[randomChar];
+      }
+
+      if (checkDuplicateUrl(randomUrl)) {
+        generateUrl();
+      } else {
+        return randomUrl;
+      }
     }
 
-    return randomUrl;
-  };
+    function checkDuplicateUrl(url) {
+      const test = firebase
+        .database()
+        .ref()
+        .child('polls');
 
-  $scope.createPoll = function() {
-    $scope.loading.poll = true;
+      test.once('value', function (snap) {
+        return (snap.hasChild(url)) ?
+          true :
+          false;
+      });
+    }
 
-    var url = generateUrl();
-    var firebaseRef = firebase.database().ref().child('polls');
+    $scope.createPoll = function () {
+      let url = generateUrl();
 
-    firebaseRef.once('value', function(snap) {
-      if (snap.hasChild(url)) {
-        // this url exists, re-generateUrl
-        $scope.createPoll();
-      } else {
-        firebase.database().ref('polls/' + url).set({
+      firebase
+        .database()
+        .ref('polls/' + url)
+        .set({
           newPoll: true
-        }).then(function() {
+        })
+        .then(function () {
           $scope.loading.poll = false;
           console.log('url created successfully');
           $location.path('/' + url);
           $scope.$apply();
         })
-      }
-    });
-  };
-
-}]);
+    };
+  }
+]);
