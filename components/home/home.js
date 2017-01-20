@@ -41,7 +41,8 @@ pollster.controller('HomeCtrl', ['$scope', '$location', function($scope, $locati
         .database()
         .ref('polls/' + url)
         .set({
-          newPoll: true
+          newPoll: true,
+          created: Date.now()
         })
         .then(function () {
           $scope.loading.poll = false;
