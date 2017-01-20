@@ -15,7 +15,7 @@
                     <span class="user-down" ng-if="item.voteDowns && item.voteDowns.length">▼<span class="user" ng-repeat="user in item.voteDowns">&nbsp;{{ (localUser === user.name) ? user.name + '*' : user.name }}</span></span>
                 </div>
             </div>
-            <span style="margin-top: 1em;color: lightgray;text-transform:capitalize" ng-if="item.addedBy">Added by {{ item.addedBy }}</span>
+            <span style="margin-top: 1em;color: lightgray;" ng-if="item.addedBy">Added by <span style="text-transform:capitalize">{{ item.addedBy }}</span></span>
             <div style="clear:both;"></div>
         </div>
     </li>
