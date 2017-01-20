@@ -37,7 +37,8 @@ pollster.controller('PollCtrl', ['$scope', '$firebaseObject', 'poll', function($
     // Add voteItem creator name from localStorage
     var voteItem = {
       creationDate: Date.now(),
-      name: item
+      name: item,
+      addedBy: $scope.localUser
     };
 
     if ($scope.poll.options) {
