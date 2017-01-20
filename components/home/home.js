@@ -1,8 +1,7 @@
-pollster.controller('HomeCtrl', [
-  '$scope',
-  '$location',
-  function ($scope, $location) {
-    $scope.loading.poll = false;
+pollster.controller('HomeCtrl', ['$scope', '$location', function($scope, $location) {
+    $scope.loading = {
+      poll: false
+    };
 
     function generateUrl() {
       const CHARS = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
