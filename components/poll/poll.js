@@ -38,7 +38,13 @@ pollster.controller('PollCtrl', ['$scope', '$firebaseObject', 'poll', function($
     var voteItem = {
       creationDate: Date.now(),
       name: item,
-      addedBy: $scope.localUser
+      addedBy: $scope.localUser,
+      voteUps: [
+        {
+          name: $scope.localUser,
+          date: Date.now()
+        }
+      ]
     };
 
     if ($scope.poll.options) {
